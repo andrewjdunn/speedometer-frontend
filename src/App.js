@@ -9,9 +9,7 @@ function App() {
   const [highY, setHighY] = useState(1)
   const [lowY, setLowY] = useState(1000)
 
-  console.log("Fetching")
   useEffect((lowY) => {
-    console.log("Fetching.")
     fetch("http://localhost:8080/records")
     .then((response) =>
       response.json()
@@ -22,7 +20,6 @@ function App() {
       var highY = 0
 
       function updateDomainRange(record) {
-        console.log("record.DownloadSpeed > highY "+record.DownloadSpeed + " > "+ highY)
         
         if(record.DownloadSpeed > highY) {
           highY = record.DownloadSpeed
@@ -33,14 +30,12 @@ function App() {
         }
       }
       data.forEach(updateDomainRange)
-      console.log("High / Low "+highY+" / "+lowY)
       setHighY(highY * 1.2)
       setLowY(lowY * .8)
       setReady(true)
     })
   }, [])
 
-  console.log("Ready "+ready+" : "+{ready})
   if (!ready) return <div>
     <h1>Loading...</h1></div>
 
